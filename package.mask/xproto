@@ -1,0 +1,2 @@
+# solves the seg fault at startup; kactivitymanage
+=x11-proto/xproto-7.0.28
