@@ -1,0 +1,21 @@
+## bash files execution/sourcing order for gentoo
+Sourced /etc/bash/bashrc from /etc/profile @ Sun Sep  6 13:36:40 IST 2015
+Start sourcing sh files from /etc/profile.d directory @ Sun Sep  6 13:36:40 IST 2015
+/etc/profile.d/test.sh @ Sun Sep  6 13:36:40 IST 2015
+Start sourcing sh files from /etc/profile.d directory @ Sun Sep  6 13:36:40 IST 2015
+Sourced /etc/bash/bashrc from /etc/profile @ Sun Sep  6 13:36:57 IST 2015
+Start sourcing sh files from /etc/profile.d directory @ Sun Sep  6 13:36:57 IST 2015
+/etc/profile.d/test.sh @ Sun Sep  6 13:36:57 IST 2015
+Start sourcing sh files from /etc/profile.d directory @ Sun Sep  6 13:36:57 IST 2015
+.bash_profile @ Sun Sep  6 13:36:57 IST 2015
+/etc/bash/bashrc @ Sun Sep  6 13:37:13 IST 2015
+start sourcing from /etc/bash/bashrc to bashrc.d/* @ Sun Sep  6 13:37:13 IST 2015
+/etc/bash/bashrc.d @ Sun Sep  6 13:37:13 IST 2015
+start sourcing from /etc/bash/bashrc to bashrc.d/* @ Sun Sep  6 13:37:13 IST 2015
+.bashrc @ Sun Sep  6 13:37:13 IST 2015
+/etc/bash/bashrc @ Sun Sep  6 13:41:50 IST 2015
+start sourcing from /etc/bash/bashrc to bashrc.d/* @ Sun Sep  6 13:41:50 IST 2015
+/etc/bash/bashrc.d @ Sun Sep  6 13:41:50 IST 2015
+start sourcing from /etc/bash/bashrc to bashrc.d/* @ Sun Sep  6 13:41:50 IST 2015
+Sourcing ~/.bashrc from ~/.bash_profile @ Sun Sep  6 13:55:54 IST 2015
+Sourced ~/.bashrc from ~/.bash_profile @ Sun Sep  6 13:55:54 IST 2015
