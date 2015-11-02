@@ -1,1 +1,0 @@
-/home/logic/.bash_profile
