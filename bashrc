@@ -18,67 +18,98 @@ cp() { command cp -iv "$@"; }
 mv() { command mv -iv "$@"; }
 
 # alias
-#alias ls="ls -h --color=auto"
-alias ll="ls -l"
-alias la="ls -A"
-alias l="ls -CF"
-alias cl="clear"
-alias grep="grep --color=auto"
+
+## Modified commands
+alias diff='colordiff'              # requires colordiff package
+#alias grep='grep --color=auto'
+alias more='less'
+alias df='df -h'
+alias du='du -c -h'
+alias mkdir='mkdir -p -v'
+alias nano='nano -w'
+alias ping8='ping -c 5 8.8.8.8'
+alias dmesg='dmesg -HL'
 alias back="cd $OLDPWD"
-alias dfh="df -h"
+
+## New commands
+alias da='date "+%A, %B %d, %Y [%T]"'
+alias du1='du --max-depth=1'
+alias hist='history | grep'         # requires an argument
+alias openports='ss --all --numeric --processes --ipv4 --ipv6'
+alias pg='ps -Af | grep'           # requires an argument
 alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias dmesg="dmesg --color=always"
-alias mkdir="mkdir -p -v"
 
-# Pacman alias examples
-alias pacupg="sudo pacman -Syu"     # Synchronize with repositories and then upgrade packages that are out of date on the local system.
-alias pacdl="pacman -Sw"            # Download specified package(s) as .tar.xz ball
-alias pacin="sudo pacman -S"        # Install specific package(s) from the repositories
-alias pacins="sudo pacman -U"       # Install specific package not from the repositories but from a file 
-alias pacre="sudo pacman -R"        # Remove the specified package(s), retaining its configuration(s) and required dependencies
-alias pacrem="sudo pacman -Rns"     # Remove the specified package(s), its configuration(s) and unneeded dependencies
-alias pacrep="pacman -Si"           # Display information about a given package in the repositories
-alias pacreps="pacman -Ss"          # Search for package(s) in the repositories
-alias pacloc="pacman -Qi"           # Display information about a given package in the local database
-alias paclocs="pacman -Qs"          # Search for package(s) in the local database
-alias paclo="pacman -Qdt"           # List all packages which are orphaned
-alias pacc="sudo pacman -Scc"       # Clean cache - delete all the package files in the cache
-alias paclf="pacman -Ql"            # List all files installed by a given package
-alias pacown="pacman -Qo"           # Show package(s) owning the specified file(s)
-alias pacexpl="pacman -D --asexp"   # Mark one or more installed packages as explicitly installed 
-alias pacimpl="pacman -D --asdep"   # Mark one or more installed packages as non explicitly installed
+## ls
+#alias ls='ls -hF --color=auto'
+alias lr='ls -R'                    # recursive ls
+alias ll='ls -l'
+alias la='ll -A'
+alias lx='ll -BX'                   # sort by extension
+alias lz='ll -rS'                   # sort by size
+alias lt='ll -rt'                   # sort by date
+alias lm='la | more'
 
-# Additional pacman alias examples
-alias pacupd="sudo pacman -Sy && sudo abs"         # Update and refresh the local package and ABS databases against repositories
-alias pacinsd="sudo pacman -S --asdeps"            # Install given package(s) as dependencies
-alias pacmir="sudo pacman -Syy"                    # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
-# Listing changed configuration files
-alias changed-files="pacman -Qii | awk '/^MODIFIED/ {print $2}'"
+## Make Bash error tolerant
+alias :q=' exit'
+alias :Q=' exit'
+alias :x=' exit'
+alias cd..='cd ..'
+alias cl='clear'
 
-# User Functions
-# For recursively removing orphans and their configuration files: 
-orphans() {
-if [[ ! -n $(pacman -Qdt) ]]; then
-  echo "No orphans to remove."
-else
-  sudo pacman -Rns $(pacman -Qdtq)
-fi
-}
+## vi specific
+alias vibashrc="sudo vi /home/logic/.bashrc"
+alias virootbash="vi /root/.bashrc"
+alias vimake="sudo vi /etc/portage/make.conf"
+alias viuse="sudo vi /etc/portage/package.use"
+alias vi99="sudo vi /etc/portage/package.accept_keywords/9999.keywords"
 
-# Getting the size of several packages
-pacman-size() {
-CMD="pacman -Si"
-SEP=": "
-TOTAL_SIZE=0
+## gentoo specific
+alias esync="sudo eix-sync -a"
+alias eupdate="sudo emerge -avuDN --with-bdeps=y @world"
+alias epostupdate="sudo emerge --depclean && sudo revdep-rebuild"
+alias emergefetch="sudo tail -f /var/log/emerge-fetch.log"
+alias emerge="sudo emerge -av"
+alias etcupdate="sudo etc-update"
+#echo ".bashrc @ `date`" >> /home/logic/Data/dotfiles/exec_order
 
-RESULT=$(eval "${CMD} $@ 2>/dev/null" | awk -F "$SEP" -v filter="Size" -v pkg="^Name" \
-'$0 ~ pkg {pkgname=$2} $0 ~ filter {gsub(/\..*/,"") ; printf("%6s KiB %s\n", $2, pkgname)}' | sort -u -k3)
+## gentoo kernel build
+alias config="cd /usr/src/linux && sudo make menuconfig"
 
-echo "$RESULT"
-
-## Print total size.
-echo "$RESULT" | awk '{TOTAL=$1+TOTAL} END {printf("Total : %d KiB\n", TOTAL)}'
+## useful functions
+function buildkernel() {
+	echo -e "\x1B[01;93m Copying config file.. \x1B[0m"
+	sudo cp -f /home/logic/Data/dotfiles/sl410-config /usr/src/linux/
+	if [ -f /usr/src/linux/sl410-config ]
+	then
+		echo -e "\x1B[01;92m file copied. \x1B[0m"
+	else
+		echo -e "\x1B[01;91m config file not copied. \x1B[0m"
+		return 1
+	fi
+	cd /usr/src/linux
+	sudo mv sl410-config .config
+	sudo make menuconfig
+	sudo make modules_prepare
+	sudo make
+	sudo make modules_install
+	echo -e "\x1B[01;93m Mounting boot partition... \x1B[0m"
+	if grep -qs '/dev/sda3' /proc/mounts
+	then
+		echo -e "\x1B[01;91m already mounted. \x1B[0m"
+	else
+		sudo mount /boot
+		echo -e "\x1B[01;92m Mounted. \x1B[0m"
+	fi
+	echo -e "\x1B[01;93m Installing boot files to boot... \x1B[0m"
+	sudo make install
+	echo -e "\x1B[01;93m Installing ramdisk and copying it to boot... \x1B[0m"
+	sudo genkernel --install initramfs
+	echo -e "\x1B[01;93m Updating Grub bootloader. \x1B[0m"
+	sudo grub2-mkconfig -o /boot/grub/grub.cfg
+	echo -e "\x1B[01;92m Build and Installation finished. \x1B[0m"
+	ls -clta /boot
+	echo -e "\x1B[01;93m Unmounting boot.. \x1B[0m"
+	sudo umount /boot
+	echo -e "\x1B[01;92m boot unmounted. \x1B[0m"
+	cd
 }
