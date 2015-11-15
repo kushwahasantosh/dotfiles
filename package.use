@@ -139,6 +139,7 @@ app-editors/sublime-text multislot
 # required by icedtea-web (argument)
 >=app-text/ghostscript-gpl-9.15-r1 cups
 dev-java/icedtea-bin nsplugin
+dev-java/icedtea gtk
 media-sound/mpd wavpack zip soundcloud sqlite recorder pipe
 www-client/firefox custom-optimization system-icu system-jpeg system-libvpx system-sqlite wifi
 # required by www-client/firefox-40.0.3::gentoo[system-sqlite]
@@ -216,6 +217,9 @@ media-video/mpv vf-dlopen vdpau vaapi rubberband libguess libcaca cdio
 media-video/ffmpeg vdpau vaapi amr amrenc faac libass libcaca lzma theora twolame wavpack x265 openssl ssh gnutls
 dev-java/oracle-jdk-bin nsplugin javafx
 app-misc/dupeguru-me python_single_target_python3_4
-kde-frameworks/* doc
 net-misc/youtube-dl offensive
 virtual/ffmpeg vaapi vdpau theora threads
+# required by kde-apps/kdenlive-15.08.2::gentoo
+# required by kdenlive:5 (argument)
+>=media-libs/mlt-0.9.8 -kde -qt4 ffmpeg kdenlive melt
+kde-apps/kdepim google
