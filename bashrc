@@ -76,40 +76,8 @@ alias etcupdate="sudo etc-update"
 alias config="cd /usr/src/linux && sudo make menuconfig"
 
 ## useful functions
-function buildkernel() {
-	echo -e "\x1B[01;93m Copying config file.. \x1B[0m"
-	sudo cp -f /home/logic/Data/dotfiles/sl410-config /usr/src/linux/
-	if [ -f /usr/src/linux/sl410-config ]
-	then
-		echo -e "\x1B[01;92m file copied. \x1B[0m"
-	else
-		echo -e "\x1B[01;91m config file not copied. \x1B[0m"
-		return 1
-	fi
-	cd /usr/src/linux
-	sudo mv sl410-config .config
-	sudo make menuconfig
-	sudo make modules_prepare
-	sudo make
-	sudo make modules_install
-	echo -e "\x1B[01;93m Mounting boot partition... \x1B[0m"
-	if grep -qs '/dev/sda3' /proc/mounts
-	then
-		echo -e "\x1B[01;91m already mounted. \x1B[0m"
-	else
-		sudo mount /boot
-		echo -e "\x1B[01;92m Mounted. \x1B[0m"
-	fi
-	echo -e "\x1B[01;93m Installing boot files to boot... \x1B[0m"
-	sudo make install
-	echo -e "\x1B[01;93m Installing ramdisk and copying it to boot... \x1B[0m"
-	sudo genkernel --install initramfs
-	echo -e "\x1B[01;93m Updating Grub bootloader. \x1B[0m"
-	sudo grub2-mkconfig -o /boot/grub/grub.cfg
-	echo -e "\x1B[01;92m Build and Installation finished. \x1B[0m"
-	ls -clta /boot
-	echo -e "\x1B[01;93m Unmounting boot.. \x1B[0m"
-	sudo umount /boot
-	echo -e "\x1B[01;92m boot unmounted. \x1B[0m"
-	cd
+
+# start an init service.
+function service() {
+	sudo /etc/init.d/$1 $2
 }

@@ -111,7 +111,7 @@ media-sound/cantata -kde cdda qt5 taglib mtp dynamic replaygain online-services 
 app-admin/sudo offensive
 x11-themes/qtcurve -qt4 -kde gtk
 net-p2p/transmission -qt4
-dev-vcs/git highlight doc
+dev-vcs/git highlight doc gnome-keyring
 net-misc/aria2 adns bittorrent metalink nls scripts xmlrpc jemalloc ssh sqlite
 kde-apps/okular chm djvu dpi
 kde-apps/gwenview raw kipi
@@ -190,7 +190,7 @@ sci-libs/scipy doc
 dev-python/pyqtgraph doc
 media-libs/mesa vaapi vdpau
 x11-libs/libva vdpau
-app-office/libreoffice-bin -kde java
+app-office/libreoffice kde gtk
 # required by app-office/libreoffice-bin-4.4.5.2::gentoo
 # required by libreoffice-bin (argument)
 >=media-libs/harfbuzz-0.9.41 icu
@@ -215,11 +215,26 @@ dev-lang/python doc
 >=dev-lang/python-3.4.3 sqlite tk
 media-video/mpv vf-dlopen vdpau vaapi rubberband libguess libcaca cdio
 media-video/ffmpeg vdpau vaapi amr amrenc faac libass libcaca lzma theora twolame wavpack x265 openssl ssh gnutls
-dev-java/oracle-jdk-bin nsplugin javafx
-app-misc/dupeguru-me python_single_target_python3_4
+dev-java/oracle-jdk-bin nsplugin javafx_
 net-misc/youtube-dl offensive
 virtual/ffmpeg vaapi vdpau theora threads
 # required by kde-apps/kdenlive-15.08.2::gentoo
 # required by kdenlive:5 (argument)
 >=media-libs/mlt-0.9.8 -kde -qt4 ffmpeg kdenlive melt
 kde-apps/kdepim google
+kde-apps/kdepim-runtime google
+sys-fs/ntfs3g ntfsdecrypt
+kde-apps/kget sqlite
+app-text/poppler -qt4 curl
+media-sound/sox id3tag amr wavpack twolame
+media-video/mkvtoolnix curl
+www-client/lynx idn
+x11-terms/xterm toolbar
+# required by kde-plasma/kwin-5.4.95::kde
+# required by kde-plasma/plasma-meta-5.4.95::kde
+# required by @selected
+# required by @world (argument)
+>=media-libs/mesa-11.0.5 wayland
+media-sound/flacon -qt4 wavpack replaygain
+app-arch/p7zip -kde -wxwidgets
+media-gfx/gimp wmf xpm python postscript curl doc aalib
