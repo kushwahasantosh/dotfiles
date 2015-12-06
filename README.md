@@ -1,1 +1,1 @@
-My dotfiles for Gentoo.
+Gentoo Linux specific configuration files.
