@@ -1,5 +1,0 @@
-# required by =kde-apps/dolphin-plugins-15.08.0 (argument)
-# /var/lib/layman/kde/profiles/package.mask/kde-apps-15.08.0:
-# Manuel Rüger <mrueg@gentoo.org> (15 Aug 2015)
-# Unmasking not decided yet
-=kde-apps/dolphin-plugins-15.08.0
