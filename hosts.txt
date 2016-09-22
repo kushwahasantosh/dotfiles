@@ -1,0 +1,22 @@
+# This file is shared hosts non-profit.
+# Its purpose is to allow free use of music in #Netease#Cloud Music.
+# Do not edit the file to not affect use.
+# Follow us on Telegram for more   #information.@NeteaseES
+
+127.0.0.1 localhost
+::1 localhost
+
+198.47.104.134 m10.music.126.net
+198.47.104.134 m3.music.126.net
+123.58.180.105 m6.music.126.net
+174.35.52.182 m9.music.126.net
+174.35.25.7 m1.music.126.net
+220.243.234.5 m4.music.126.net
+174.35.24.139 m7.music.126.net
+198.47.104.134 m2.music.126.net
+123.58.180.106 m5.music.126.net
+220.243.234.8 m8.music.126.net
+45.32.72.192 music.163.com
+174.35.25.9 p1.music.126.net
+174.35.24.138 p2.music.126.net
+174.35.52.77 p3.music.126.net
